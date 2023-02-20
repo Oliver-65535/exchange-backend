@@ -1,0 +1,112 @@
+{
+  "info": {
+    "_postman_id": "a23f4fb8-dabb-41f5-881e-504b33a9d29f",
+    "name": "sdf",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "24840348"
+  },
+  "item": [
+    {
+      "name": "getOrders without params",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/getOrders",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "getOrders"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getOrders with TokenA & TokenB",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/getOrders?tokenA=0x9d2d94cDD59cb1b7c2bf4b9E9863fc9767d19B58&tokenB=0x06db97Fa607b1e1AdF69fA3B2745f54967d9A09d",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "getOrders"],
+          "query": [
+            {
+              "key": "tokenA",
+              "value": "0x9d2d94cDD59cb1b7c2bf4b9E9863fc9767d19B58"
+            },
+            {
+              "key": "tokenB",
+              "value": "0x06db97Fa607b1e1AdF69fA3B2745f54967d9A09d"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getOrders with TokenA & TokenB & user",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/getOrders?tokenA=0x9d2d94cDD59cb1b7c2bf4b9E9863fc9767d19B58&tokenB=0x06db97Fa607b1e1AdF69fA3B2745f54967d9A09d&user=0x22961F4EB722B9582E9743a662e6f1c051add4df",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "getOrders"],
+          "query": [
+            {
+              "key": "tokenA",
+              "value": "0x9d2d94cDD59cb1b7c2bf4b9E9863fc9767d19B58"
+            },
+            {
+              "key": "tokenB",
+              "value": "0x06db97Fa607b1e1AdF69fA3B2745f54967d9A09d"
+            },
+            {
+              "key": "user",
+              "value": "0x22961F4EB722B9582E9743a662e6f1c051add4df"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getOrders with TokenA & TokenB & user & active",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/getOrders?tokenA=0x9d2d94cDD59cb1b7c2bf4b9E9863fc9767d19B58&tokenB=0x06db97Fa607b1e1AdF69fA3B2745f54967d9A09d&user=0x22961F4EB722B9582E9743a662e6f1c051add4df&active=true",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "getOrders"],
+          "query": [
+            {
+              "key": "tokenA",
+              "value": "0x9d2d94cDD59cb1b7c2bf4b9E9863fc9767d19B58"
+            },
+            {
+              "key": "tokenB",
+              "value": "0x06db97Fa607b1e1AdF69fA3B2745f54967d9A09d"
+            },
+            {
+              "key": "user",
+              "value": "0x22961F4EB722B9582E9743a662e6f1c051add4df"
+            },
+            {
+              "key": "active",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
