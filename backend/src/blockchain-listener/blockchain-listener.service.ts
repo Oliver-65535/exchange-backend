@@ -93,9 +93,9 @@ export class BlockchainListenerService {
   async listenOrderCreated() {
     this.orderContract.events.OrderCreated(
       { fromBlock: 'latest' },
-      function (error, event) {
-        console.log(event);
-        () => this.saveDataOrderCreated(event);
+      (error, event) => {
+        // console.log(event);
+        this.saveDataOrderCreated(event);
       },
     );
   }
@@ -103,9 +103,9 @@ export class BlockchainListenerService {
   async listenOrderMatched() {
     this.orderContract.events.OrderMatched(
       { fromBlock: 'latest' },
-      function (error, event) {
-        console.log(event);
-        () => this.saveDataOrderMatched(event);
+      (error, event) => {
+        // console.log(event);
+        this.saveDataOrderMatched(event);
       },
     );
   }
@@ -113,9 +113,9 @@ export class BlockchainListenerService {
   async listenOrderCancelled() {
     this.orderContract.events.OrderCancelled(
       { fromBlock: 'latest' },
-      function (error, event) {
-        console.log(event);
-        () => this.saveDataOrderCancelled(event);
+      (error, event) => {
+        // console.log(event);
+        this.saveDataOrderCancelled(event);
       },
     );
   }
