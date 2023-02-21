@@ -11,12 +11,15 @@ export class OrdersService {
   ) {}
 
   async createOrder(data: any): Promise<any> {
+    // console.log(data);
     if (await this.getOrder(data.orderId)) return;
     const order = Object.assign({}, new OrderEntity(), data);
+    console.log(order);
     return await this.orderRepository.save(order);
   }
 
   async matchOrder(data: any): Promise<any> {
+    // console.log(data);
     const orderFinded = await this.getOrder(data.orderId);
     if (!orderFinded.active) return;
     const order = Object.assign({}, orderFinded, data, { active: false });
@@ -25,6 +28,7 @@ export class OrdersService {
   }
 
   async cancelOrder(data: any): Promise<any> {
+    // console.log(data);
     const orderFinded = await this.getOrder(data.orderId);
     if (!orderFinded.active) return;
     const order = Object.assign({}, orderFinded, data, { active: false });
@@ -33,12 +37,6 @@ export class OrdersService {
   }
 
   async getOrders(getOrdersQuery): Promise<any> {
-    Object.keys(getOrdersQuery).forEach((key) => {
-      if (key !== 'active') {
-        getOrdersQuery[key] = ILike(`%${getOrdersQuery[key]}%`);
-      }
-    });
-
     return await this.orderRepository.find({
       where: getOrdersQuery,
       order: { blockNumber: 'DESC' },
@@ -46,19 +44,36 @@ export class OrdersService {
   }
 
   async getMatchingOrders(params): Promise<any> {
+    const amountA =
+      parseInt(params.amountA) == 0
+        ? await this.orderRepository
+            .findOne({
+              select: ['amountA'],
+              where: {
+                tokenA: params.tokenA,
+                tokenB: params.tokenB,
+                status: 'OrderMatched',
+              },
+              order: { blockNumber: 'DESC' },
+            })
+            .then((e) => e.amountA)
+        : parseInt(params.amountA);
+
     const query = {
-      tokenA: ILike(`%${params.tokenA}%`),
-      tokenB: ILike(`%${params.tokenB}%`),
-      amountA: MoreThanOrEqual(parseInt(params.amountA)),
+      tokenA: params.tokenA,
+      tokenB: params.tokenB,
+      amountA: MoreThanOrEqual(amountA),
       amountB: MoreThanOrEqual(parseInt(params.amountB)),
       active: true,
     };
 
-    return await this.orderRepository.find({
+    const orderIds = await this.orderRepository.find({
       select: ['orderId'],
       where: query,
       order: { blockNumber: 'DESC' },
     });
+
+    return orderIds.map((e) => e.orderId);
   }
 
   async getOrder(id: string): Promise<any> {

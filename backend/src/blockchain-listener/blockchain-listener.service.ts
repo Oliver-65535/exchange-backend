@@ -29,10 +29,10 @@ export class BlockchainListenerService {
   }
 
   async runBlockchainListenerEvents() {
-    await this.listenOrderCreated();
+    this.listenOrderCreated();
+    this.listenOrderMatched();
+    this.listenOrderCancelled();
     await this.recoveryOrdersCreated();
-    await this.listenOrderMatched();
-    await this.listenOrderCancelled();
     await this.recoveryOrdersMatched();
     await this.recoveryOrdersCancelled();
   }
@@ -94,7 +94,6 @@ export class BlockchainListenerService {
     this.orderContract.events.OrderCreated(
       { fromBlock: 'latest' },
       (error, event) => {
-        // console.log(event);
         this.saveDataOrderCreated(event);
       },
     );
@@ -104,7 +103,6 @@ export class BlockchainListenerService {
     this.orderContract.events.OrderMatched(
       { fromBlock: 'latest' },
       (error, event) => {
-        // console.log(event);
         this.saveDataOrderMatched(event);
       },
     );
@@ -114,7 +112,6 @@ export class BlockchainListenerService {
     this.orderContract.events.OrderCancelled(
       { fromBlock: 'latest' },
       (error, event) => {
-        // console.log(event);
         this.saveDataOrderCancelled(event);
       },
     );
