@@ -51,17 +51,14 @@ export class OrdersService {
       tokenB: ILike(`%${params.tokenB}%`),
       amountA: MoreThanOrEqual(parseInt(params.amountA)),
       amountB: MoreThanOrEqual(parseInt(params.amountB)),
+      active: true,
     };
 
     return await this.orderRepository.find({
+      select: ['orderId'],
       where: query,
       order: { blockNumber: 'DESC' },
     });
-
-    // return await this.orderRepository
-    //   .createQueryBuilder('order')
-    //   .where('order.active = :active', { active: false })
-    //   .getRawMany();
   }
 
   async getOrder(id: string): Promise<any> {
