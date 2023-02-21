@@ -41,9 +41,10 @@ On root directory
 docker-compose up -d
 ```
 
-Application will be deployed on http://localhost:3000
+Endpoints on http://localhost:5000/api/getOrders,
+Endpoints on http://localhost:5000/api/getMatchingOrders <- params required
 
-Swagger Docs on http://localhost:3000/api/docs
+Swagger Docs on http://localhost:5000/api/docs
 
 ## **Running locally**
 
@@ -67,7 +68,8 @@ yarn
 $ yarn start
 ```
 
-Backend will be started on http://localhost:5000
+Endpoints on http://localhost:5000/api/getOrders,
+Endpoints on http://localhost:5000/api/getMatchingOrders <- params required
 
 Swagger Docs on http://localhost:5000/api/docs
 
