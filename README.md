@@ -50,7 +50,11 @@ Swagger Docs on http://localhost:5000/api/docs
 
 ## Backend
 
-First you have to postgresql installed on your computer.
+First you have to postgresql installed on your computer or use docker
+
+```bash
+$ docker-compose -f docker-compose.db.yml up -d
+```
 
 Edit the database properties on the backend/.env file.
 
