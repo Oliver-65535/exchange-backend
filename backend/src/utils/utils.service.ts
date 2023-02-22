@@ -12,11 +12,10 @@ export class UtilsService {
   }
 
   convertOrderCreatedData(data: any) {
-    const { amountA, amountB, tokenA, tokenB, user, isMarket, id } =
-      data.returnValues;
+    const { tokenA, tokenB, user, isMarket, id } = data.returnValues;
     return {
-      amountA: parseInt(amountA),
-      amountB: parseInt(amountB),
+      // amountA: parseInt(amountA),
+      // amountB: parseInt(amountB),
       tokenA,
       tokenB,
       user,
@@ -32,19 +31,20 @@ export class UtilsService {
     const {
       id,
       matchedId,
-      amountReceived,
-      amountPaid,
-      amountLeftToFill,
-      fee,
-      feeRate,
+      // amountReceived,
+      // amountPaid,
+      // amountLeftToFill,
+      // fee,
+      // feeRate,
     } = data.returnValues;
     return {
       matchedId,
-      amountReceived,
-      amountPaid,
-      amountLeftToFill,
-      fee,
-      feeRate,
+      // amountReceived,
+      // amountPaid,
+      // amountLeftToFill,
+      // fee,
+      // feeRate,
+      active: false,
       orderId: id,
       status: data.event,
       blockNumber: data.blockNumber,
@@ -55,6 +55,7 @@ export class UtilsService {
     const { id } = data.returnValues;
     return {
       orderId: id,
+      active: false,
       status: data.event,
       blockNumber: data.blockNumber,
     };

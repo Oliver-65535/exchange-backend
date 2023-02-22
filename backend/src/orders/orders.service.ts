@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { OrderEntity } from './order.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, ILike, MoreThanOrEqual } from 'typeorm';
+import { Repository, ILike, MoreThanOrEqual, MoreThan, In } from 'typeorm';
+import { userInfo } from 'os';
 
 @Injectable()
 export class OrdersService {
@@ -22,7 +23,7 @@ export class OrdersService {
     // console.log(data);
     const orderFinded = await this.getOrder(data.orderId);
     if (!orderFinded.active) return;
-    const order = Object.assign({}, orderFinded, data, { active: false });
+    const order = Object.assign({}, orderFinded, data);
     console.log(order);
     return await this.orderRepository.save(order);
   }
@@ -31,39 +32,28 @@ export class OrdersService {
     // console.log(data);
     const orderFinded = await this.getOrder(data.orderId);
     if (!orderFinded.active) return;
-    const order = Object.assign({}, orderFinded, data, { active: false });
+    const order = Object.assign({}, orderFinded, data);
     console.log(order);
     return await this.orderRepository.save(order);
   }
 
-  async getOrders(getOrdersQuery): Promise<any> {
+  async getOrders(params): Promise<any> {
+    Object.keys(params).forEach((key) => {
+      if (key !== 'active' && key !== 'user') {
+        params[key] = In([params.tokenA, params.tokenB]);
+      }
+    });
+
     return await this.orderRepository.find({
-      where: getOrdersQuery,
+      where: params,
       order: { blockNumber: 'DESC' },
     });
   }
 
   async getMatchingOrders(params): Promise<any> {
-    const amountA =
-      parseInt(params.amountA) == 0
-        ? await this.orderRepository
-            .findOne({
-              select: ['amountA'],
-              where: {
-                tokenA: params.tokenA,
-                tokenB: params.tokenB,
-                status: 'OrderMatched',
-              },
-              order: { blockNumber: 'DESC' },
-            })
-            .then((e) => e.amountA)
-        : parseInt(params.amountA);
-
     const query = {
-      tokenA: params.tokenA,
-      tokenB: params.tokenB,
-      amountA: MoreThanOrEqual(amountA),
-      amountB: MoreThanOrEqual(parseInt(params.amountB)),
+      tokenA: In([params.tokenA, params.tokenB]),
+      tokenB: In([params.tokenA, params.tokenB]),
       active: true,
     };
 
@@ -73,7 +63,9 @@ export class OrdersService {
       order: { blockNumber: 'DESC' },
     });
 
-    return orderIds.map((e) => e.orderId);
+    return params.amountA >= 0 && params.amountB > 0
+      ? orderIds.map((e) => e.orderId)
+      : [];
   }
 
   async getOrder(id: string): Promise<any> {

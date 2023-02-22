@@ -13,11 +13,11 @@ export class OrderEntity extends BaseEntity {
   @Column()
   orderId: string;
 
-  @Column({ type: 'decimal', precision: 30, default: 0 })
-  amountA: number;
+  // @Column({ type: 'decimal', precision: 30, default: 0 })
+  // amountA: number;
 
-  @Column({ type: 'decimal', precision: 30, default: 0 })
-  amountB: number;
+  // @Column({ type: 'decimal', precision: 30, default: 0 })
+  // amountB: number;
 
   @Column({ nullable: true })
   tokenA: string;
@@ -40,18 +40,18 @@ export class OrderEntity extends BaseEntity {
   @Column({ nullable: true })
   matchedId: string;
 
-  @Column({ nullable: true })
-  amountReceived: string;
+  // @Column({ nullable: true })
+  // amountReceived: string;
 
-  @Column({ nullable: true })
-  amountPaid: string;
+  // @Column({ nullable: true })
+  // amountPaid: string;
 
-  @Column({ nullable: true })
-  amountLeftToFill: string;
+  // @Column({ nullable: true })
+  // amountLeftToFill: string;
 
-  @Column({ nullable: true })
-  fee: string;
+  // @Column({ nullable: true })
+  // fee: string;
 
-  @Column({ nullable: true })
-  feeRate: string;
+  // @Column({ nullable: true })
+  // feeRate: string;
 }
